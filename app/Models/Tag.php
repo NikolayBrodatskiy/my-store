@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Orchid\Attachment\Attachable;
-use Orchid\Filters\Filterable;
-use Orchid\Screen\AsSource;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -41,7 +38,6 @@ class Tag extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use AsSource, Filterable, Attachable;
 
     protected $table = 'tags';
     protected $guarded = false;

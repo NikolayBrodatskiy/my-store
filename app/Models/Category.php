@@ -12,10 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
-use Orchid\Attachment\Attachable;
-use Orchid\Filters\Filterable;
-use Orchid\Filters\HttpFilter;
-use Orchid\Screen\AsSource;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -62,7 +58,6 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
     use HasSlug;
-    use AsSource, Filterable, Attachable;
 
     protected $table = 'categories';
     protected $guarded = false;

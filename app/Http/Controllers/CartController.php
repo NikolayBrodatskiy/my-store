@@ -7,7 +7,7 @@ use App\Http\Resources\CartItem\CartItemResource;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
-use App\Service\CartService;
+use App\Services\CartService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;

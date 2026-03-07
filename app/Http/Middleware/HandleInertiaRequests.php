@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Service\CartService;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;

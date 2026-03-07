@@ -13,7 +13,7 @@ class ProductOrderResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'image' => $this->previewImage()->first()->url(),
+            'image' => $this->preview_image,
             'price' => $this->pivot->price,
             'quantity' => $this->pivot->quantity,
         ];

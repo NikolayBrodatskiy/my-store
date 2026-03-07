@@ -10,11 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Orchid\Attachment\Attachable;
-use Orchid\Attachment\Models\Attachment;
-use Orchid\Filters\Filterable;
-use Orchid\Filters\Types\Like;
-use Orchid\Screen\AsSource;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -81,7 +76,6 @@ class Product extends Model
     use SoftDeletes;
     use HasFilter;
     use HasSlug;
-    use AsSource, Filterable, Attachable;
 
     protected $table = 'products';
     protected $guarded = false;

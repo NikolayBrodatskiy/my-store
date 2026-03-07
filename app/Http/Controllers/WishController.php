@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
-use App\Service\CartService;
+use App\Services\CartService;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 

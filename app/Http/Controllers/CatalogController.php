@@ -7,7 +7,7 @@ use App\Http\Resources\Product\ProductCardResource;
 use App\Http\Resources\Section\SectionWithCategoriesResource;
 use App\Models\Category;
 use App\Models\Section;
-use App\Service\CatalogService;
+use App\Services\CatalogService;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;

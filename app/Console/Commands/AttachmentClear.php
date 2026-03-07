@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Orchid\Attachment\Models\Attachment;
+
 
 class AttachmentClear extends Command
 {

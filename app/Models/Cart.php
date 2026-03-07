@@ -10,10 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Orchid\Attachment\Attachable;
-use Orchid\Filters\Filterable;
-use Orchid\Filters\HttpFilter;
-use Orchid\Screen\AsSource;
 
 
 /**
@@ -43,7 +39,6 @@ use Orchid\Screen\AsSource;
  */
 class Cart extends Model
 {
-    use AsSource, Filterable, Attachable;
 
     protected $table = 'carts';
 

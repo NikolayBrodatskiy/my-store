@@ -48,6 +48,7 @@ RUN set -eux; \
     install-php-extensions @composer; \
     install-php-extensions xdebug; \
     install-php-extensions sockets; \
+    install-php-extensions pcntl; \
     php -r 'var_dump(gd_info());'
 
 # Установка nodejs
@@ -68,7 +69,7 @@ COPY /.docker/app/supervisor /etc/supervisor
 COPY /.docker/app/conf.d /usr/local/etc/php/conf.d/
 
 # Настройка php-fpm
-COPY /.docker/app/php-fpm.d/www.conf /usr/local/etc/php-fpm.d
+#COPY /.docker/app/php-fpm.d/www.conf /usr/local/etc/php-fpm.d
 
 # Очистка мусора
 RUN apt-get clean \

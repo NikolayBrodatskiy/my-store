@@ -4,16 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Orchid\Access\RoleAccess;
-use Orchid\Access\RoleInterface;
-use Orchid\Filters\Filterable;
-use Orchid\Filters\Types\Like;
-use Orchid\Filters\Types\Where;
-use Orchid\Metrics\Chartable;
-use Orchid\Screen\AsSource;
+
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $slug

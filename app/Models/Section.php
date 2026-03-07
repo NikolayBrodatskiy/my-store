@@ -11,10 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Carbon;
-use Orchid\Attachment\Attachable;
-use Orchid\Filters\Filterable;
-use Orchid\Filters\HttpFilter;
-use Orchid\Screen\AsSource;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -51,7 +47,6 @@ class Section extends Model
 {
     use HasFactory;
     use HasSlug;
-    use AsSource, Filterable, Attachable;
 
     protected $guarded = false;
 

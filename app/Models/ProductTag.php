@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Orchid\Screen\AsSource;
+
 
 /**
  *
@@ -18,8 +17,7 @@ use Orchid\Screen\AsSource;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductTag whereTagId($value)
  * @mixin \Eloquent
  */
-class ProductTag extends Model
-{
+class ProductTag extends Model {
     use AsSource;
 
     protected $table = 'product_tag';

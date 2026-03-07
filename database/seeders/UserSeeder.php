@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Orchid\Platform\Dashboard;
 
 class UserSeeder extends Seeder
 {
