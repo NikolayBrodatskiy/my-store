@@ -16,8 +16,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- *
- *
  * @property int $id
  * @property string $title
  * @property int $section_id
@@ -29,14 +27,10 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read Collection<int, Category> $children
  * @property-read int|null $children_count
  * @property-read Category|null $parent
- * @property-read Collection<int, Product> $products
+ * @property-read Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
- * @property-read Section $section
- * @method static Builder<static>|Category defaultSort(string $column, string $direction = 'asc')
- * @method static CategoryFactory factory($count = null, $state = [])
- * @method static Builder<static>|Category filters(?mixed $kit = null, ?HttpFilter $httpFilter = null)
- * @method static Builder<static>|Category filtersApply(iterable $filters = [])
- * @method static Builder<static>|Category filtersApplySelection($class)
+ * @property-read \App\Models\Section $section
+ * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
  * @method static Builder<static>|Category newModelQuery()
  * @method static Builder<static>|Category newQuery()
  * @method static Builder<static>|Category onlyTrashed()
@@ -49,7 +43,7 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder<static>|Category whereSlug($value)
  * @method static Builder<static>|Category whereTitle($value)
  * @method static Builder<static>|Category whereUpdatedAt($value)
- * @method static Builder<static>|Category withTrashed()
+ * @method static Builder<static>|Category withTrashed(bool $withTrashed = true)
  * @method static Builder<static>|Category withoutTrashed()
  * @mixin Eloquent
  */

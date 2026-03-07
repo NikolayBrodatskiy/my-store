@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 
 /**
- *
- *
  * @property int $product_id
  * @property int $tag_id
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductTag newModelQuery()
@@ -18,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  */
 class ProductTag extends Model {
-    use AsSource;
 
     protected $table = 'product_tag';
     protected $guarded = false;

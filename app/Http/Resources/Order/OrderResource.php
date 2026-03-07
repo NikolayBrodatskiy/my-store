@@ -3,6 +3,8 @@
 namespace App\Http\Resources\Order;
 
 use App\Http\Resources\Product\ProductOrderResource;
+use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

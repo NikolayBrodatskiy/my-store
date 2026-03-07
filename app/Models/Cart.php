@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,20 +13,16 @@ use Illuminate\Support\Carbon;
 
 
 /**
- *
- *
  * @property int $id
  * @property string $storage_id
  * @property int|null $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, CartItem> $cartItems
+ * @property-read Collection<int, \App\Models\CartItem> $cartItems
  * @property-read int|null $cart_items_count
- * @property-read User|null $user
- * @method static Builder<static>|Cart defaultSort(string $column, string $direction = 'asc')
- * @method static Builder<static>|Cart filters(?mixed $kit = null, ?HttpFilter $httpFilter = null)
- * @method static Builder<static>|Cart filtersApply(iterable $filters = [])
- * @method static Builder<static>|Cart filtersApplySelection($class)
+ * @property-read Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
+ * @property-read \App\Models\User|null $user
  * @method static Builder<static>|Cart newModelQuery()
  * @method static Builder<static>|Cart newQuery()
  * @method static Builder<static>|Cart query()
@@ -35,7 +31,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Cart whereStorageId($value)
  * @method static Builder<static>|Cart whereUpdatedAt($value)
  * @method static Builder<static>|Cart whereUserId($value)
- * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class Cart extends Model
 {

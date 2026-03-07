@@ -15,24 +15,18 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- *
- *
  * @property int $id
  * @property string $title
  * @property string $slug
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, Category> $categories
+ * @property-read Collection<int, \App\Models\Category> $categories
  * @property-read int|null $categories_count
- * @property-read Collection<int, Category> $parentCategories
+ * @property-read Collection<int, \App\Models\Category> $parentCategories
  * @property-read int|null $parent_categories_count
- * @property-read Collection<int, Product> $products
+ * @property-read Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
- * @method static Builder<static>|Section defaultSort(string $column, string $direction = 'asc')
- * @method static SectionFactory factory($count = null, $state = [])
- * @method static Builder<static>|Section filters(?mixed $kit = null, ?HttpFilter $httpFilter = null)
- * @method static Builder<static>|Section filtersApply(iterable $filters = [])
- * @method static Builder<static>|Section filtersApplySelection($class)
+ * @method static \Database\Factories\SectionFactory factory($count = null, $state = [])
  * @method static Builder<static>|Section newModelQuery()
  * @method static Builder<static>|Section newQuery()
  * @method static Builder<static>|Section query()

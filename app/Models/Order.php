@@ -16,26 +16,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- *
- *
  * @property int $id
  * @property int|null $user_id
- * @property string $total
+ * @property numeric $total
  * @property OrderStatus $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, OrderItem> $orderItems
+ * @property Carbon|null $deleted_at
+ * @property-read Collection<int, \App\Models\OrderItem> $orderItems
  * @property-read int|null $order_items_count
- * @property-read User|null $user
+ * @property-read Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
+ * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\OrderFactory factory($count = null, $state = [])
  * @method static Builder<static>|Order newModelQuery()
  * @method static Builder<static>|Order newQuery()
+ * @method static Builder<static>|Order onlyTrashed()
  * @method static Builder<static>|Order query()
  * @method static Builder<static>|Order whereCreatedAt($value)
+ * @method static Builder<static>|Order whereDeletedAt($value)
  * @method static Builder<static>|Order whereId($value)
  * @method static Builder<static>|Order whereStatus($value)
  * @method static Builder<static>|Order whereTotal($value)
  * @method static Builder<static>|Order whereUpdatedAt($value)
  * @method static Builder<static>|Order whereUserId($value)
+ * @method static Builder<static>|Order withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|Order withoutTrashed()
  * @mixin Eloquent
  */
 class Order extends Model

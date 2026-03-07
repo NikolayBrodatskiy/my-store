@@ -14,17 +14,14 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- *
- *
  * @property int $id
  * @property string $title
  * @property string $slug
  * @property string $description
  * @property string $preview_image
  * @property int $price
- * @property int $count
  * @property int $orders_quantity
- * @property bool $wished
+ * @property int $count
  * @property float $rating
  * @property bool $is_published
  * @property int $category_id
@@ -35,30 +32,26 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CartItem> $cartItems
  * @property-read int|null $cart_items_count
  * @property-read \App\Models\Category $category
- * @property-read int|null $images_count
  * @property-read \App\Models\Sticker|null $sticker
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tag> $tags
  * @property-read int|null $tags_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $wishedBy
  * @property-read int|null $wished_by_count
- * @method static Builder<static>|Product defaultSort(string $column, string $direction = 'asc')
  * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static Builder<static>|Product filter(\App\Http\Filters\FilterInterface $filter)
- * @method static Builder<static>|Product filters(?mixed $kit = null, ?\Orchid\Filters\HttpFilter $httpFilter = null)
- * @method static Builder<static>|Product filtersApply(iterable $filters = [])
- * @method static Builder<static>|Product filtersApplySelection($class)
  * @method static Builder<static>|Product newModelQuery()
  * @method static Builder<static>|Product newQuery()
  * @method static Builder<static>|Product onlyTrashed()
  * @method static Builder<static>|Product query()
  * @method static Builder<static>|Product sorted()
  * @method static Builder<static>|Product whereCategoryId($value)
- * @method static Builder<static>|Product whereColor($value)
+ * @method static Builder<static>|Product whereCount($value)
  * @method static Builder<static>|Product whereCreatedAt($value)
  * @method static Builder<static>|Product whereDeletedAt($value)
  * @method static Builder<static>|Product whereDescription($value)
  * @method static Builder<static>|Product whereId($value)
  * @method static Builder<static>|Product whereIsPublished($value)
+ * @method static Builder<static>|Product whereOrdersQuantity($value)
  * @method static Builder<static>|Product wherePreviewImage($value)
  * @method static Builder<static>|Product wherePrice($value)
  * @method static Builder<static>|Product whereRating($value)
@@ -66,7 +59,7 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder<static>|Product whereStickerId($value)
  * @method static Builder<static>|Product whereTitle($value)
  * @method static Builder<static>|Product whereUpdatedAt($value)
- * @method static Builder<static>|Product withTrashed()
+ * @method static Builder<static>|Product withTrashed(bool $withTrashed = true)
  * @method static Builder<static>|Product withoutTrashed()
  * @mixin \Eloquent
  */
@@ -129,23 +122,9 @@ class Product extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function previewImage()
-    {
-        return $this->hasOne(Attachment::class, 'id', 'preview_image')
-            ->withDefault();
-    }
-
-    //Orchid
-    protected array $allowedSorts = [
-        'id',
-        'title',
-        'price',
-        'is_published',
-        'updated_at',
-        'created_at',
-    ];
-
-    protected array $allowedFilters = [
-        'title' => Like::class,
-    ];
+//    public function previewImage()
+//    {
+//        return $this->hasOne(Attachment::class, 'id', 'preview_image')
+//            ->withDefault();
+//    }
 }
