@@ -49,20 +49,23 @@ class CartService
         }
     }
 
-    public function getItems(): array|Collection
+    /**
+     * @return Collection<int, \App\Models\CartItem>
+     */
+    public function getItems(): Collection
     {
-        return $this->getCart()->cartItems()->orderBy('id')->get() ?? [];
+        return $this->getCart()->cartItems;
     }
 
     public function getTotal()
     {
-        return $this->getItems()->sum(function ($item) {
+        return $this->getItems()->sum(function (CartItem $item) {
             return $item->count * $item->price;
         });
     }
 
     public function count(){
-        return $this->getItems()->sum(function ($item) {
+        return $this->getItems()->sum(function (CartItem $item) {
             return $item->count;
         });
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
 use App\Http\Resources\CartItem\CartItemResource;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -26,7 +28,7 @@ class CartController extends Controller
     public function index()
     {
         $cartItems = $this->cartService->getItems();
-        $total = $cartItems->sum(fn ($item) => $item->price);
+        $total = $cartItems->sum(fn (CartItem $cartItem) => $cartItem->price);
         return Inertia::render('Cart/Index', [
             'products' => CartItemResource::collection($cartItems),
             'total' => $total
