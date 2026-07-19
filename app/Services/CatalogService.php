@@ -31,7 +31,7 @@ class CatalogService
             ->filter($filter)
             ->sorted()
             ->paginate(8)
-            ->withQueryString();;
+            ->withQueryString();
 
         $tags = Cache::flexible('tags', [600, 1200], function () {
             return Tag::all();

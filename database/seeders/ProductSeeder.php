@@ -13,7 +13,7 @@ class ProductSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $tags = Tag::all();
         $products = Product::factory()

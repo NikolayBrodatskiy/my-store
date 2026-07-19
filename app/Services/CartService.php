@@ -50,7 +50,7 @@ class CartService
     }
 
     /**
-     * @return Collection<int, \App\Models\CartItem>
+     * @return Collection<int, CartItem>
      */
     public function getItems(): Collection
     {

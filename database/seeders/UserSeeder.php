@@ -13,18 +13,9 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         User::factory(2)->create();
-
-        // User::factory()->create([
-        //     'name' => 'admin',
-        //     'email' => 'admin@admin.com',
-        //     'password' => Hash::make('password'),
-        //     'role' => 1,
-        //     'permissions' => json_encode(["platform.index" => true, "platform.systems.roles" => true, "platform.systems.users" => true, "platform.systems.attachment" => true]),
-
-        // ]);
         User::factory()->create([
             'name' => 'user',
             'email' => 'user@user.com',

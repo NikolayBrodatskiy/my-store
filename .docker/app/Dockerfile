@@ -53,7 +53,8 @@ RUN set -eux; \
 
 # Установка nodejs
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
-  && apt-get install -y nodejs
+  && apt-get install -y nodejs \
+  && npm install -g concurrently
 
 # Копирование таблиц крон
 COPY /.docker/app/cron/crontab.txt /etc/cron.d/crontab

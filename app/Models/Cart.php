@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, \App\Models\CartItem> $cartItems
+ * @property-read Collection<int, CartItem> $cartItems
  * @property-read int|null $cart_items_count
  * @property-read Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
