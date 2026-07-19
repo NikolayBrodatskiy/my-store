@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
 use App\Http\Resources\CartItem\CartItemResource;
-use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -28,10 +27,10 @@ class CartController extends Controller
     public function index()
     {
         $cartItems = $this->cartService->getItems();
-        $total = $cartItems->sum(fn (CartItem $cartItem) => $cartItem->price);
+
         return Inertia::render('Cart/Index', [
             'products' => CartItemResource::collection($cartItems),
-            'total' => $total
+            'total' => $this->cartService->getTotal()
         ]);
     }
 
@@ -81,10 +80,11 @@ class CartController extends Controller
 
                 $this->cartService->destroy();
 
-                Db::commit();
+                DB::commit();
+
                 return redirect()->route('orders.index');
             } catch (Exception $exception) {
-                Db::rollBack();
+                DB::rollBack();
                 return back()->with('message', __($exception->getMessage()));
             }
     }

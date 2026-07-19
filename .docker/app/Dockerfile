@@ -75,3 +75,5 @@ COPY /.docker/app/conf.d /usr/local/etc/php/conf.d/
 # Очистка мусора
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

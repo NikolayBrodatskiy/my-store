@@ -10,14 +10,29 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CartService
 {
-    protected Cart $cart;
-
     public function getCart(): Cart
     {
-        return Cart::query()
-            ->when(auth()->check(), fn(Builder $q) => $q->where('user_id', auth()->id()))
-            ->orWhere('storage_id', session()->getId())
-            ->first() ?? Cart::create(['storage_id' => session()->getId(), 'user_id' => auth()->id()]);
+        $sessionId = session()->getId();
+        $userId = auth()->id();
+
+        $cart = Cart::query()
+            ->when($userId, fn (Builder $q) => $q->where('user_id', $userId))
+            ->when(!$userId, fn (Builder $q) => $q
+                ->where('storage_id', $sessionId)
+                ->whereNull('user_id'))
+            ->first();
+
+        if (!$cart && $userId) {
+            $cart = Cart::query()
+                ->where('storage_id', $sessionId)
+                ->whereNull('user_id')
+                ->first();
+        }
+
+        return $cart ?? Cart::create([
+            'storage_id' => $sessionId,
+            'user_id' => $userId,
+        ]);
     }
 
     public function add(Product $product): void
@@ -37,16 +52,24 @@ class CartService
     public function increase(Product $product): void
     {
         $cartItem = $this->getCart()->cartItems()->firstWhere('product_id', $product->id);
+
+        if (!$cartItem) {
+            return;
+        }
+
         $cartItem->increment('count');
     }
 
     public function decrease(Product $product): void
     {
-        /** @var CartItem $cartItem */
+        /** @var CartItem|null $cartItem */
         $cartItem = $this->getCart()->cartItems()->firstWhere('product_id', $product->id);
-        if ($cartItem->count > 1) {
-            $cartItem->decrement('count');
+
+        if (!$cartItem || $cartItem->count <= 1) {
+            return;
         }
+
+        $cartItem->decrement('count');
     }
 
     /**
@@ -78,31 +101,63 @@ class CartService
     public function destroyItem(Product $product): void
     {
         $cartItem = $this->getCart()->cartItems()->firstWhere('product_id', $product->id);
+
+        if (!$cartItem) {
+            return;
+        }
+
         $cartItem->delete();
     }
 
     public function mergeCarts(): void
     {
-        $carts = Cart::where('user_id', auth()->id())->get();
-        $newCart = Cart::create(['storage_id' => session()->getId(), 'user_id' => auth()->id()]);
+        $sessionId = session()->getId();
+        $userId = auth()->id();
 
-        /** @var Cart $cart */
+        $carts = Cart::query()
+            ->where('user_id', $userId)
+            ->with('cartItems')
+            ->get();
+
+        if ($carts->count() <= 1) {
+            $carts->first()?->update([
+                'storage_id' => $sessionId,
+                'user_id' => $userId,
+            ]);
+
+            return;
+        }
+
+        $targetCart = $carts->firstWhere('storage_id', $sessionId) ?? $carts->first();
+
         foreach ($carts as $cart) {
-            $cartItems = $cart->cartItems()->get();
-
-            /** @var CartItem $cartItem */
-            foreach ($cartItems as $cartItem) {
-                /** @var Product $product */
-                $product = $newCart->cartItems()
-                    ->firstOrCreate(['product_id' => $cartItem->product_id], ['price' => $cartItem->price, 'count' => $cartItem->count]);
-
-                if ($product->count < $cartItem->count) {
-                    $product->count = $cartItem->count;
-                    $product->save();
-                }
-
+            if ($cart->id === $targetCart->id) {
+                continue;
             }
+
+            foreach ($cart->cartItems as $cartItem) {
+                $existing = $targetCart->cartItems()->firstWhere('product_id', $cartItem->product_id);
+
+                if ($existing) {
+                    $existing->update([
+                        'count' => $existing->count + $cartItem->count,
+                        'price' => $cartItem->price,
+                    ]);
+                } else {
+                    $targetCart->cartItems()->create([
+                        'product_id' => $cartItem->product_id,
+                        'price' => $cartItem->price,
+                        'count' => $cartItem->count,
+                    ]);
+                }
+            }
+
             $cart->delete();
         }
+
+        $targetCart->update([
+            'storage_id' => $sessionId,
+            'user_id' => $userId,
+        ]);
     }
 }
