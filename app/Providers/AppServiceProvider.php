@@ -28,14 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(!app()->isProduction());
 
         if (app()->isProduction()) {
-            DB::listen(function (QueryExecuted $query) {
-                if ($query->time > 100) {
-                    logger()
-                        ->channel('telegram')
-                        ->debug('Query longer than 1ms: ' . $query->sql, $query->bindings);
-                }
-            });
-
             DB::whenQueryingForLongerThan(
                 CarbonInterval::seconds(5),
                 function (QueryExecuted $query) {

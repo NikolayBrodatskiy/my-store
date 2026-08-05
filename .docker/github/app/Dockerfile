@@ -10,8 +10,6 @@ RUN cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Установка docker-php-extension-installer
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-# Install "nano", "procps", "cron", "curl", "libpq-dev", "libjpeg-dev",
-# "libpng-dev", "libfreetype6-dev", "libssl-dev", "libmcrypt-dev",
 RUN set -eux; \
     apt-get update; \
     apt-get upgrade -y; \
@@ -55,9 +53,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
   && apt-get install -y nodejs
 
 # Добавление кастомных .ini файлов для php
-COPY /.docker/app/conf.d /usr/local/etc/php/conf.d/
+#COPY /.docker/app/conf.d /usr/local/etc/php/conf.d/
 
-COPY . .
+#COPY . .
 
 RUN composer install \
       --no-interaction \
