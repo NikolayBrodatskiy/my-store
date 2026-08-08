@@ -14,7 +14,6 @@ class InstallCommand extends Command
     public function handle(): int
     {
         $this->call('storage:link');
-        $this->call('orchid:admin', ['name' => 'admin', 'email' => 'admin@admin.com', 'password' => 'password']);
 
         return self::SUCCESS;
     }

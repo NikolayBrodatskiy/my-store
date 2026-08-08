@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\MoonShineUserRole\Pages;
+namespace App\MoonShine\Resources\Role\Pages;
 
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Pages\Crud\IndexPage;
-use App\MoonShine\Resources\MoonShineUserRole\MoonShineUserRoleResource;
+use App\MoonShine\Resources\Role\RoleResource;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
 /**
- * @extends IndexPage<MoonShineUserRoleResource>
+ * @extends IndexPage<RoleResource>
  */
-final class MoonShineUserRoleIndexPage extends IndexPage
+final class RoleIndexPage extends IndexPage
 {
     /**
      * @return list<FieldContract>

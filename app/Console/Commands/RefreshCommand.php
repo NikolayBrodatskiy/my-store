@@ -21,7 +21,6 @@ class RefreshCommand extends Command
         Storage::deleteDirectory('public');
 
         $this->call('migrate:fresh', ['--seed' => true]);
-        $this->call('orchid:admin', ['name' => 'admin', 'email' => 'admin@admin.com', 'password' => 'password']);
 
         return self::SUCCESS;
     }

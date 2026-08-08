@@ -18,7 +18,6 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $address
  * @property string|null $avatar
  * @property int|null $gender
- * @property int $role
  * @property array<array-key, mixed>|null $permissions
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $email_verified_at
@@ -68,6 +67,11 @@ class User extends Authenticatable {
      */
     protected $guarded = false;
 
+    public function role(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
+
     /**
      * @return HasMany
      */
@@ -103,7 +107,7 @@ class User extends Authenticatable {
         'password',
         'remember_token',
         'permissions',
-        'role',
+        'roles',
         'email_verified_at'
     ];
 

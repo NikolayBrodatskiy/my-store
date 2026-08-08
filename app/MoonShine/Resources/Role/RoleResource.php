@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\MoonShineUserRole;
+namespace App\MoonShine\Resources\Role;
 
-use MoonShine\Laravel\Models\MoonshineUserRole;
+use App\Models\Role;
+use App\MoonShine\Resources\Role\Pages\RoleFormPage;
+use App\MoonShine\Resources\Role\Pages\RoleIndexPage;
 use MoonShine\Laravel\Resources\ModelResource;
-use App\MoonShine\Resources\MoonShineUserRole\Pages\MoonShineUserRoleFormPage;
-use App\MoonShine\Resources\MoonShineUserRole\Pages\MoonShineUserRoleIndexPage;
 use MoonShine\MenuManager\Attributes\Group;
 use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Support\Attributes\Icon;
@@ -15,14 +15,14 @@ use MoonShine\Support\Enums\Action;
 use MoonShine\Support\ListOf;
 
 /**
- * @extends ModelResource<MoonshineUserRole, MoonShineUserRoleIndexPage, MoonShineUserRoleFormPage, null>
+ * @extends ModelResource<Role, RoleIndexPage, RoleFormPage, null>
  */
 #[Icon('bookmark')]
-#[Group('moonshine::ui.resource.system', 'users', translatable: true)]
+#[Group('moonshine::ui.resource.system', 'roles', translatable: true)]
 #[Order(1)]
-class MoonShineUserRoleResource extends ModelResource
+class RoleResource extends ModelResource
 {
-    protected string $model = MoonshineUserRole::class;
+    protected string $model = Role::class;
 
     protected string $column = 'name';
 
@@ -47,8 +47,8 @@ class MoonShineUserRoleResource extends ModelResource
     protected function pages(): array
     {
         return [
-            MoonShineUserRoleIndexPage::class,
-            MoonShineUserRoleFormPage::class,
+            RoleIndexPage::class,
+            RoleFormPage::class,
         ];
     }
 

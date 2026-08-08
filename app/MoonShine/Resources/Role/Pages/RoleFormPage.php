@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\MoonShineUserRole\Pages;
+namespace App\MoonShine\Resources\Role\Pages;
 
+use App\Models\Role;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
-use MoonShine\Laravel\Models\MoonshineUserRole;
 use MoonShine\Laravel\Pages\Crud\FormPage;
-use App\MoonShine\Resources\MoonShineUserRole\MoonShineUserRoleResource;
+use App\MoonShine\Resources\Role\RoleResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
 /**
- * @extends FormPage<MoonShineUserRoleResource, MoonshineUserRole>
+ * @extends FormPage<RoleResource, Role>
  */
-final class MoonShineUserRoleFormPage extends FormPage
+final class RoleFormPage extends FormPage
 {
     /**
      * @return list<ComponentContract|FieldContract>

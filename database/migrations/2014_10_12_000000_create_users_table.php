@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('avatar')->nullable();
             $table->unsignedSmallInteger('gender')->nullable();
-            $table->unsignedSmallInteger('role')->default(0);
             $table->jsonb('permissions')->nullable();
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\MoonShineUser\Pages;
+namespace App\MoonShine\Resources\User\Pages;
 
+use App\Models\Role;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password as PasswordRule;
@@ -11,11 +12,11 @@ use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
+use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Models\MoonshineUser;
-use MoonShine\Laravel\Models\MoonshineUserRole;
 use MoonShine\Laravel\Pages\Crud\FormPage;
-use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
-use App\MoonShine\Resources\MoonShineUserRole\MoonShineUserRoleResource;
+use App\MoonShine\Resources\User\UserResource;
+use App\MoonShine\Resources\Role\RoleResource;
 use MoonShine\UI\Components\Collapse;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Layout\Flex;
@@ -30,9 +31,9 @@ use MoonShine\UI\Fields\PasswordRepeat;
 use MoonShine\UI\Fields\Text;
 
 /**
- * @extends FormPage<MoonShineUserResource, MoonShineUser>
+ * @extends FormPage<UserResource, MoonShineUser>
  */
-final class MoonShineUserFormPage extends FormPage
+final class UserFormPage extends FormPage
 {
     /**
      * @return list<ComponentContract|FieldContract>
@@ -45,14 +46,12 @@ final class MoonShineUserFormPage extends FormPage
                     Tab::make(__('moonshine::ui.resource.main_information'), [
                         ID::make(),
 
-                        BelongsTo::make(
-                            __('moonshine::ui.resource.role'),
-                            'moonshineUserRole',
-                            formatted: static fn (MoonshineUserRole $model) => $model->name,
-                            resource: MoonShineUserRoleResource::class,
-                        )
-                            ->creatable()
-                            ->valuesQuery(static fn (Builder $q) => $q->select(['id', 'name'])),
+                        BelongsToMany::make(
+                            'Roles',
+                            'role',
+                            formatted: static fn(Role $model) => $model->name,
+                            resource: RoleResource::class,
+                        )->valuesQuery(static fn (Builder $q) => $q->select(['id', 'name'])),
 
                         Flex::make([
                             Text::make(__('moonshine::ui.resource.name'), 'name')
@@ -92,7 +91,7 @@ final class MoonShineUserFormPage extends FormPage
     {
         return [
             'name' => 'required',
-            'moonshine_user_role_id' => 'required',
+            'role' => ['required', 'array', 'exists:roles,id'],
             'email' => [
                 'sometimes',
                 'bail',

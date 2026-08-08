@@ -67,7 +67,7 @@ RUN chmod 0744 /etc/cron.d/crontab; \
 COPY /.docker/app/supervisor /etc/supervisor
 
 # Добавление кастомных .ini файлов для php
-COPY /.docker/app/conf.d /usr/local/etc/php/conf.d/
+#COPY /.docker/app/conf.d /usr/local/etc/php/conf.d/
 
 # Настройка php-fpm
 #COPY /.docker/app/php-fpm.d/www.conf /usr/local/etc/php-fpm.d

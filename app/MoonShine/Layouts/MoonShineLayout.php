@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Layouts;
 
+use App\MoonShine\Resources\Role\RoleResource;
+use App\MoonShine\Resources\User\UserResource;
 use MoonShine\Laravel\Layouts\AppLayout;
-use MoonShine\ColorManager\Palettes\SpringPalette;
+use MoonShine\ColorManager\Palettes\PurplePalette;
 use MoonShine\ColorManager\ColorManager;
 use MoonShine\Contracts\ColorManager\ColorManagerContract;
 use MoonShine\Contracts\ColorManager\PaletteContract;
+use MoonShine\MenuManager\MenuGroup;
+use MoonShine\MenuManager\MenuItem;
+use App\MoonShine\Resources\Tag\TagResource;
 
 final class MoonShineLayout extends AppLayout
 {
     /**
      * @var null|class-string<PaletteContract>
      */
-    protected ?string $palette = SpringPalette::class;
+    protected ?string $palette = PurplePalette::class;
 
     protected function assets(): array
     {
@@ -27,7 +32,11 @@ final class MoonShineLayout extends AppLayout
     protected function menu(): array
     {
         return [
-            ...parent::menu(),
+            MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
+                MenuItem::make(UserResource::class),
+                MenuItem::make(RoleResource::class),
+            ]),
+            MenuItem::make(TagResource::class, 'Tags'),
         ];
     }
 

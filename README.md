@@ -33,7 +33,7 @@ docker compose exec app chmod -R 775 ./bootstrap/cache
 ```
 docker compose exec app php artisan migrate
 docker compose exec app php artisan key:generate
-#docker compose exec app php artisan app:install #создать admin-user, storage link
+docker compose exec app php artisan moonshine:install -Q
 docker compose exec app php artisan db:seed #создать фейковые записи в таблицах
 ```
 

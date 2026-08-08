@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -33,7 +34,7 @@ return [
     ],
 
     // Default flags
-    'use_migrations' => true,
+    'use_migrations' => false,
     'use_notifications' => true,
     'use_database_notifications' => true,
     'use_routes' => true,
@@ -70,7 +71,7 @@ return [
     'auth' => [
         'enabled' => true,
         'guard' => 'moonshine',
-        'model' => MoonshineUser::class,
+        'model' => User::class,
         'middleware' => [
             Authenticate::class,
         ],
@@ -87,7 +88,7 @@ return [
 
     // Layout, palette, pages, forms
     'layout' => App\MoonShine\Layouts\MoonShineLayout::class,
-    'palette' => MoonShine\ColorManager\Palettes\SpringPalette::class,
+    'palette' => MoonShine\ColorManager\Palettes\PurplePalette::class,
 
     'forms' => [
         'login' => LoginForm::class,
