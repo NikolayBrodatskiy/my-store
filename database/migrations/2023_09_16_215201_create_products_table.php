@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('description');
-            $table->string('preview_image');
+            $table->text('description')->nullable();
+            $table->string('preview_image')->nullable();
+            $table->string('attributes')->nullable();
             $table->unsignedInteger('price');
             $table->unsignedInteger('orders_quantity')->default(0);
             $table->unsignedInteger('count')->default(0);

@@ -74,6 +74,10 @@ class Product extends Model
     protected $guarded = false;
     protected $with = ['category', 'sticker', 'tags'];
 
+    protected $casts = [
+        'attributes' => 'json',
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
