@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2431e0c05343276f6af7c98be429fe3f",
+    "content-hash": "d94b21910244a4ae8b483931d0389892",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -7862,6 +7862,63 @@
                 }
             ],
             "time": "2024-11-21T01:49:47+00:00"
+        },
+        {
+            "name": "yurizoom/moonshine-log-viewer",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yurizoom/moonshine-log-viewer.git",
+                "reference": "1b536977d3c89ddc9279fd52961fc2d9a725f827"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yurizoom/moonshine-log-viewer/zipball/1b536977d3c89ddc9279fd52961fc2d9a725f827",
+                "reference": "1b536977d3c89ddc9279fd52961fc2d9a725f827",
+                "shasum": ""
+            },
+            "require": {
+                "moonshine/moonshine": "^4.0",
+                "php": "^8.2"
+            },
+            "conflict": {
+                "moonshine/moonshine": "<4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "YuriZoom\\MoonShineLogViewer\\LogViewerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YuriZoom\\MoonShineLogViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yurizoom",
+                    "homepage": "https://github.com/yurizoom",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Log viewer for MoonShine",
+            "keywords": [
+                "Viewer",
+                "log",
+                "moonshine"
+            ],
+            "support": {
+                "issues": "https://github.com/yurizoom/moonshine-log-viewer/issues",
+                "source": "https://github.com/yurizoom/moonshine-log-viewer/tree/3.0.1"
+            },
+            "time": "2026-01-06T19:15:20+00:00"
         }
     ],
     "packages-dev": [

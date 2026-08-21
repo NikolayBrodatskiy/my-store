@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Layouts;
 
+use App\MoonShine\Pages\LogViewerPage;
 use App\MoonShine\Resources\Product\ProductResource;
 use App\MoonShine\Resources\Role\RoleResource;
 use App\MoonShine\Resources\Tag\TagResource;
@@ -41,11 +42,12 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make(UserResource::class),
                 MenuItem::make(RoleResource::class),
             ]),
+            MenuItem::make(LogViewerPage::class),
         ];
     }
 
     /**
-     * @param ColorManager $colorManager
+     * @param  ColorManager  $colorManager
      */
     protected function colors(ColorManagerContract $colorManager): void
     {

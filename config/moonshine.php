@@ -8,15 +8,11 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use MoonShine\ColorManager\Palettes\PurplePalette;
 use MoonShine\Crud\Forms\FiltersForm;
 use MoonShine\Crud\Forms\LoginForm;
 use MoonShine\Laravel\Exceptions\MoonShineNotFoundException;
 use MoonShine\Laravel\Http\Middleware\Authenticate;
 use MoonShine\Laravel\Http\Middleware\ChangeLocale;
-use MoonShine\Laravel\Layouts\AppLayout;
-use MoonShine\Laravel\Models\MoonshineUser;
-use MoonShine\Laravel\Pages\Dashboard;
 use MoonShine\Laravel\Pages\ErrorPage;
 use MoonShine\Laravel\Pages\LoginPage;
 use MoonShine\Laravel\Pages\ProfilePage;
@@ -65,7 +61,7 @@ return [
     // Storage
     'disk' => 'public',
     'disk_options' => [],
-    'cache' => 'file',
+    'cache' => 'redis',
 
     // Authentication and profile
     'auth' => [
@@ -108,4 +104,10 @@ return [
     'locales' => [
         // en
     ],
+
+    'log_viewer' => [
+        'auto_menu' => false,
+        // Путь до директории с логами
+        'path' => storage_path('logs'),
+    ]
 ];
