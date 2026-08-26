@@ -32,11 +32,11 @@ jobs:
       - name: Remove remove anonymous local volumes.
         run:  docker compose volume prune -f || true
 
-      - name: Copy .env
-        run: cp .env.production .env
+#      - name: Copy .env
+#        run: cp .env.production .env
 
-      - name: Docker compose up
-        run: docker compose -f docker-compose.prod.yml up -d
+#      - name: Docker compose up
+#        run: docker compose -f docker-compose.prod.yml up -d
 
       - run: docker compose exec app composer install --no-dev
       - run: docker compose exec app npm install

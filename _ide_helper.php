@@ -23992,23 +23992,6 @@ namespace Illuminate\Console\Scheduling {
             }
     }
 
-namespace MoonShine\Core\Collections {
-    /**
-     * @template T of ComponentContract = ComponentContract
-     * @template TFields of FieldsContract = FieldsContract<\MoonShine\Contracts\UI\FieldContract>
-     * @implements ComponentsContract<T, TFields>
-     * @extends BaseCollection<T>
-     */
-    class Components extends \MoonShine\Core\Collections\BaseCollection {
-            }
-    /**
-     * @template T of ComponentContract = ComponentContract
-     * @extends Collection<array-key, T>
-     */
-    class BaseCollection extends \Illuminate\Support\Collection {
-            }
-    }
-
 
 namespace  {
     class App extends \Illuminate\Support\Facades\App {}
