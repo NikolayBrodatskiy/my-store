@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\HasFilter;
+use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -69,6 +70,7 @@ class Product extends Model
     use SoftDeletes;
     use HasFilter;
     use HasSlug;
+    use Searchable;
 
     protected $table = 'products';
     protected $guarded = false;
@@ -77,6 +79,14 @@ class Product extends Model
     protected $casts = [
         'attributes' => 'json',
     ];
+
+    public function getSearchableFields(): array
+    {
+        return [
+            'title',
+            'description',
+        ];
+    }
 
     public function category(): BelongsTo
     {
