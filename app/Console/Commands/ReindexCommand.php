@@ -51,7 +51,6 @@ class ReindexCommand extends Command
      */
     private function reindex(string $className): void
     {
-        /** @var Product $model */
         $model = new $className;
         $index = $model->searchableAs();
 
@@ -75,7 +74,7 @@ class ReindexCommand extends Command
 
         $this->info("Indexing {$className}");
 
-        $this->withProgressBar($className::query()->cursor(), function (Product $model) {
+        $this->withProgressBar($className::query()->cursor(), function (Model $model) {
             $model->elasticsearchIndex($this->elasticsearch);
         });
 
