@@ -49,7 +49,10 @@ console.log(props);
                 </p>
             </div>
             <div class="flex items-center justify-between py-2">
-                <p class=" text-l font-semibold text-surface-800 dark:text-surface-200">{{ product.price }}₽</p>
+                <p class="text-l font-semibold text-surface-800 dark:text-surface-200">{{ product.price }}₽</p>
+                <p class="text-center min-w-0 flex-1 truncate px-2 text-lg font-semibold text-surface-800 dark:text-surface-200">
+                    {{ product.title }}
+                </p>
                 <Button severity="secondary" text v-if="$page.props.auth.user" @click.prevent="toggleWish(product)"
                         :class="{ 'opacity-50': processingAddToWish }">
                     <i v-if="product.wished" class="pi pi-heart-fill" style="color: red"></i>
