@@ -26,10 +26,10 @@ class ProductFactory extends Factory
             'category_id' => Category::all()->random()->id,
             'sticker_id' => Sticker::all()->random()->id,
             'price' => fake()->numberBetween(100, 1000),
-            'orders_quantity' => fake()->numberBetween(0, 100000),
+            'sold_quantity' => fake()->numberBetween(0, 100000),
             'count' => fake()->numberBetween(0, 100000),
-            'rating' => fake()->randomFloat(1,0, 5),
-            'is_published' => 1
+            'rating' => fake()->randomFloat(1, 0, 5),
+            'is_published' => 1,
         ];
     }
 }

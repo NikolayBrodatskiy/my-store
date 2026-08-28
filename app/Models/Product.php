@@ -21,7 +21,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property string $description
  * @property string $preview_image
  * @property int $price
- * @property int $orders_quantity
+ * @property int $sold_quantity
  * @property int $count
  * @property float $rating
  * @property bool $is_published
@@ -53,10 +53,10 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder<static>|Product whereDescription($value)
  * @method static Builder<static>|Product whereId($value)
  * @method static Builder<static>|Product whereIsPublished($value)
- * @method static Builder<static>|Product whereOrdersQuantity($value)
  * @method static Builder<static>|Product wherePreviewImage($value)
  * @method static Builder<static>|Product wherePrice($value)
  * @method static Builder<static>|Product whereRating($value)
+ * @method static Builder<static>|Product whereSoldQuantity($value)
  * @method static Builder<static>|Product whereSlug($value)
  * @method static Builder<static>|Product whereStickerId($value)
  * @method static Builder<static>|Product whereTitle($value)
@@ -126,10 +126,10 @@ class Product extends Model
                 'price' => $query->orderBy('price', 'ASC'),
                 '-price' => $query->orderBy('price', 'DESC'),
                 'rating' => $query->orderBy('rating', 'DESC'),
-                'popularity' => $query->orderBy('orders_quantity', 'DESC'),
+                'popularity' => $query->orderBy('sold_quantity', 'DESC'),
             };
         }, function (Builder $query) {
-            $query->orderBy('orders_quantity', 'DESC');
+            $query->orderBy('sold_quantity', 'DESC');
         });
     }
 

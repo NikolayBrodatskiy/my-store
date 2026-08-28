@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -15,8 +16,8 @@ class OrderFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'total' => $this->faker->randomFloat(),
-            'status' => $this->faker->word(),
+            'total' => $this->faker->randomFloat(2, 0, 999999.99),
+            'status' => OrderStatus::Unpaid,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

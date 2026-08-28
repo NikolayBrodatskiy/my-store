@@ -29,6 +29,7 @@ class ProductDetailPage extends DetailPage
 {
     /**
      * @return list<FieldContract>
+     *
      * @throws Throwable
      */
     protected function fields(): iterable
@@ -64,7 +65,7 @@ class ProductDetailPage extends DetailPage
 
             Number::make('Count', 'count'),
 
-            Number::make('Orders Quantity', 'orders_quantity'),
+            Number::make('Sold Quantity', 'sold_quantity'),
 
             Number::make('Rating', 'rating'),
 

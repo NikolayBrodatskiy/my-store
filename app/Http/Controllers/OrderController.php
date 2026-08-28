@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\OrderStatus;
 use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Services\OrderService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
 class OrderController extends Controller
 {
+    public function __construct(private readonly OrderService $orderService) {}
+
     public function index()
     {
         $user = auth()->user();
@@ -51,12 +53,7 @@ class OrderController extends Controller
      */
     public function pay(Order $order)
     {
-        $order->updateStatus(OrderStatus::Paid);
-
-        $order->orderItems->each(function (OrderItem $orderItem) {
-            $orderItem->product->orders_quantity += $orderItem->quantity;
-            $orderItem->product->save();
-        });
+        $this->orderService->pay($order);
 
         return back();
     }

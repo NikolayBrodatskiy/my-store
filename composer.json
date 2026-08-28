@@ -68,6 +68,9 @@
         "reindex": [
             "@php artisan search:reindex"
         ],
+        "migrate": [
+            "@php artisan migrate"
+        ],
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"

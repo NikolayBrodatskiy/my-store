@@ -61,7 +61,7 @@ return [
     // Storage
     'disk' => 'public',
     'disk_options' => [],
-    'cache' => 'redis',
+    'cache' => env('MOONSHINE_CACHE', 'redis'),
 
     // Authentication and profile
     'auth' => [
@@ -109,5 +109,5 @@ return [
         'auto_menu' => false,
         // Путь до директории с логами
         'path' => storage_path('logs'),
-    ]
+    ],
 ];
