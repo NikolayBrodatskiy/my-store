@@ -90,10 +90,10 @@ const filterExpand = ref(false);
             >
                 <div class="space-y-8 py-4">
                     <div>
-                        <ProductSearch></ProductSearch>
+                        <ProductSearch/>
                     </div>
                     <div>
-                        <ProductPriceFilter></ProductPriceFilter>
+                        <ProductPriceFilter/>
                     </div>
                     <div class="flex justify-center">
                         <ButtonPrimary @click="applyFilters" class="w-full">

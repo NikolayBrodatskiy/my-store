@@ -38,6 +38,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read int|null $tags_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $wishedBy
  * @property-read int|null $wished_by_count
+ *
  * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static Builder<static>|Product filter(\App\Http\Filters\FilterInterface $filter)
  * @method static Builder<static>|Product newModelQuery()
@@ -62,18 +63,21 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder<static>|Product whereUpdatedAt($value)
  * @method static Builder<static>|Product withTrashed(bool $withTrashed = true)
  * @method static Builder<static>|Product withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Product extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     use HasFilter;
     use HasSlug;
     use Searchable;
+    use SoftDeletes;
 
     protected $table = 'products';
+
     protected $guarded = false;
+
     protected $with = ['category', 'sticker', 'tags'];
 
     protected $casts = [
@@ -83,7 +87,7 @@ class Product extends Model
     public function getSearchableFields(): array
     {
         return [
-            'title',
+            'title^3',
             'description',
         ];
     }
@@ -136,9 +140,9 @@ class Product extends Model
             ->saveSlugsTo('slug');
     }
 
-//    public function previewImage()
-//    {
-//        return $this->hasOne(Attachment::class, 'id', 'preview_image')
-//            ->withDefault();
-//    }
+    //    public function previewImage()
+    //    {
+    //        return $this->hasOne(Attachment::class, 'id', 'preview_image')
+    //            ->withDefault();
+    //    }
 }

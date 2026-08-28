@@ -2,11 +2,11 @@
 
 namespace App\Observers;
 
-use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientInterface;
 
 class ElasticsearchObserver
 {
-    public function __construct(private Client $elasticsearchClient)
+    public function __construct(private ClientInterface $elasticsearchClient)
     {
         // ...
     }

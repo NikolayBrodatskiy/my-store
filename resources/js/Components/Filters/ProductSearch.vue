@@ -1,5 +1,4 @@
 <script setup>
-import {ref} from "vue";
 import InputText from 'primevue/inputtext';
 
 import {useFilterStore} from "@/Store/useFilterStore";
@@ -7,10 +6,15 @@ import {usePage} from "@inertiajs/vue3";
 
 const filterStore = useFilterStore();
 const currentLocation = usePage().props.ziggy.location;
+const props = defineProps({
+    target: {
+        type: String,
+        default: null,
+    },
+});
 
-const search = ref(filterStore.search);
 function applyFilters() {
-    filterStore.applyFilters(currentLocation);
+    filterStore.applyFilters(props.target ?? currentLocation);
 }
 </script>
 

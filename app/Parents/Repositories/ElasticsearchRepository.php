@@ -2,54 +2,76 @@
 
 namespace App\Parents\Repositories;
 
-use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
 abstract class ElasticsearchRepository extends Repository
 {
-    private readonly Client $elasticsearch;
+    private readonly ClientInterface $elasticsearch;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->elasticsearch = app(Client::class);
+        $this->elasticsearch = app(ClientInterface::class);
     }
 
-    public function search(string $searchText, Builder $query = null): Builder
+    public function search(string $searchText, ?Builder $query = null): Builder
     {
         $items = $this->searchOnElasticsearch($searchText);
 
-        $collection = $this->buildCollection($items, $query);
-
-        return $collection;
+        return $this->applySearchResults($items, $query);
     }
 
-    private function searchOnElasticsearch(string $searchText): array
+    protected function searchOnElasticsearch(string $searchText): array
     {
         $items = $this->elasticsearch->search([
-            'index' => $this->model->getTable(),
-            'type' => '_doc',
+            'index' => $this->model->searchableAs(),
+            'size' => config('services.search.max_results'),
+            '_source' => false,
             'body' => [
                 'query' => [
-                    'multi_match' => [
-                        'fields' => $this->model->getSearchableFields(),
-                        'query' => $searchText,
+                    'bool' => [
+                        'should' => [
+                            [
+                                'multi_match' => [
+                                    'fields' => $this->model->getSearchableFields(),
+                                    'query' => $searchText,
+                                    'fuzziness' => 'AUTO',
+                                ],
+                            ],
+                            [
+                                'match_phrase' => [
+                                    'title' => [
+                                        'query' => $searchText,
+                                        'boost' => 40,
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'minimum_should_match' => 1,
                     ],
-                ]
+                ],
             ],
         ])->asArray();
 
         return $items;
     }
 
-    private function buildCollection(array $items, Builder $query = null): Builder
+    private function applySearchResults(array $items, ?Builder $query = null): Builder
     {
-        $ids = Arr::pluck($items['hits']['hits'], '_id');
+        $ids = array_map('intval', Arr::pluck($items['hits']['hits'], '_id'));
 
         $query = $query ?? $this->startConditions();
-        $query = $query->whereIn($this->model->getKeyName(), $ids);
+
+        if ($ids === []) {
+            //Возврат пустого результата
+            return $query->whereRaw('1 = 0');
+        }
+
+        $qualifiedKey = $this->model->qualifyColumn($this->model->getKeyName());
+        $query->whereIn($qualifiedKey, $ids);
 
         return $query;
     }

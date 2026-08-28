@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Product;
-use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientInterface;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,39 +21,64 @@ class ReindexCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command for indexing data for ElasticSearch';
+    protected $description = 'Recreate Elasticsearch indices and index searchable data';
 
     public function __construct(
-        protected readonly Client $elasticsearch,
-    )
-    {
+        protected readonly ClientInterface $elasticsearch,
+    ) {
         parent::__construct();
     }
 
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle(): int
     {
-        $this->info('Indexation has start');
+        $this->info('Reindexing searchable models');
 
         collect([
             Product::class,
-        ])->map(fn(string $className) => $this->reindex($className));
+        ])->each(fn (string $className) => $this->reindex($className));
 
-        $this->info("\n\nDone");
+        $this->newLine(2);
+        $this->info('Done');
+
+        return self::SUCCESS;
     }
 
     /**
-     * @param class-string $className
-     * @return void
+     * @param  class-string  $className
      */
     private function reindex(string $className): void
     {
-        $this->info("\nIndexing for $className");
+        /** @var Product $model */
+        $model = new $className;
+        $index = $model->searchableAs();
 
-        $this->withProgressBar($className::all(), function (Model $model) {
+        $this->newLine();
+        $this->info("Recreating index [{$index}]");
+
+        $this->elasticsearch->indices()->delete([
+            'index' => $index,
+            'ignore_unavailable' => true,
+        ]);
+
+        $this->elasticsearch->indices()->create([
+            'index' => $index,
+            'body' => [
+                'mappings' => [
+                    'dynamic' => false,
+                    'properties' => $model->getSearchableProperties(),
+                ],
+            ],
+        ]);
+
+        $this->info("Indexing {$className}");
+
+        $this->withProgressBar($className::query()->cursor(), function (Product $model) {
             $model->elasticsearchIndex($this->elasticsearch);
         });
+
+        $this->elasticsearch->indices()->refresh(['index' => $index]);
     }
 }

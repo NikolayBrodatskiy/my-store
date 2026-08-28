@@ -94,7 +94,6 @@ function isDarkMode() {
     <div class="min-h-screen">
         <header class="w-full sticky top-0 z-20 px-6 py-3 shadow-md bg-surface-200 dark:bg-surface-700">
             <div class="flex items-center justify-between space-x-4">
-                <!-- Start -->
                 <div class="flex space-x-4">
                     <div class="flex">
                         <ButtonPrimary
@@ -112,9 +111,13 @@ function isDarkMode() {
 
                 <!-- Search -->
                 <div class="flex-1">
-                    <ProductSearch placeholder="Search" type="text" class="min-w-32 sm:w-full"/>
+                    <ProductSearch
+                        :target="route('catalog.index')"
+                        placeholder="Search"
+                        type="text"
+                        class="min-w-32 sm:w-full"
+                    />
                 </div>
-                <!-- End -->
                 <div class="flex items-center justify-end">
                     <!-- Icon Buttons  -->
                     <LocaleSwitcher/>

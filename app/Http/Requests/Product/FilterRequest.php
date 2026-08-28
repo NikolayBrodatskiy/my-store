@@ -23,7 +23,7 @@ class FilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => 'string',
+            'search' => ['nullable', 'string', 'max:255'],
             'minPrice' => 'integer',
             'maxPrice' => 'integer',
             'sort' => 'string',

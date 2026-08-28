@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Product;
 use Carbon\CarbonInterval;
-use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\ClientInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -27,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->bootSearchable();
-
         JsonResource::withoutWrapping();
         Model::shouldBeStrict(!app()->isProduction());
 
@@ -44,15 +41,10 @@ class AppServiceProvider extends ServiceProvider
 
     private function registerSearchClient(): void
     {
-        $this->app->bind(Client::class, function ($app) {
+        $this->app->singleton(ClientInterface::class, function ($app) {
             return ClientBuilder::create()
                 ->setHosts($app['config']->get('services.search.hosts'))
                 ->build();
         });
-    }
-
-    private function bootSearchable(): void
-    {
-        Product::bootSearchable();
     }
 }

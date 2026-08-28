@@ -34,5 +34,7 @@ return [
     'search' => [
         'enabled' => env('ELASTICSEARCH_ENABLED', false),
         'hosts' => explode(',', env('ELASTICSEARCH_HOSTS', 'elasticsearch:9200')),
+        'index_prefix' => env('ELASTICSEARCH_INDEX_PREFIX', ''),
+        'max_results' => (int) env('ELASTICSEARCH_MAX_RESULTS', 10000),
     ],
 ];
