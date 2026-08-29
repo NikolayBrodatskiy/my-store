@@ -34,6 +34,7 @@ final class MoonShineLayout extends AppLayout
     protected function menu(): array
     {
         return [
+            MenuItem::make(static fn () => route('/'), static fn () => __('Home page'), 'home'),
             MenuGroup::make(static fn () => __('Catalog'), [
                 MenuItem::make(ProductResource::class),
                 MenuItem::make(TagResource::class),
