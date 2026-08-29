@@ -93,6 +93,11 @@ const submit = () => {
                       class="text-primary-600 dark:text-primary-300 hover:text-primary-500 dark:hover:text-primary-400">
                     <p>Forgot your password?</p>
                 </Link>
+
+                <Link :href="route('register')"
+                      class="text-primary-600 dark:text-primary-300 hover:text-primary-500 dark:hover:text-primary-400">
+                    <p>Don't have an account? Register</p>
+                </Link>
             </div>
         </form>
     </AuthLayout>

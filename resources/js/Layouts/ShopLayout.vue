@@ -8,7 +8,7 @@ import DrawerButtonLink from "@/Components/Buttons/DrawerButtonLink.vue";
 import LocaleSwitcher from "@/Components/LocaleSwitcher.vue";
 import FlashMessage from "@/Components/FlashMessage.vue";
 import ApplicationLogo from "@/Components/Buttons/ApplicationLogo.vue";
-import SignUpButtonLink from "@/Components/Buttons/SignUpButtonLink.vue";
+import LoginButtonLink from "@/Components/Buttons/LoginButtonLink.vue";
 import ButtonPrimary from "@/Components/Buttons/ButtonDD.vue";
 import ProductSearch from "@/Components/Filters/ProductSearch.vue";
 import Drawer from 'primevue/drawer';
@@ -141,10 +141,10 @@ function isDarkMode() {
                             v-if="!$page.props.auth.user"
                             class="flex items-center gap-x-2"
                         >
-                            <SignUpButtonLink
-                                :href="route('register')"
+                            <LoginButtonLink
+                                :href="route('login')"
                             >
-                            </SignUpButtonLink>
+                            </LoginButtonLink>
                         </div>
                         <div v-else>
                             <div class="sm:ml-1">
