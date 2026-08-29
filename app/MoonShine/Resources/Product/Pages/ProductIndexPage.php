@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\Product\Pages;
 
 use App\Models\Category;
+use App\Models\Sticker;
 use App\Models\Tag;
 use App\MoonShine\Resources\Product\ProductResource;
 use App\MoonShine\Resources\Tag\TagResource;
@@ -82,13 +83,22 @@ class ProductIndexPage extends IndexPage
             Select::make('Category', 'category_id')
                 ->options(Category::query()->pluck('title', 'id')->toArray()),
 
+            Select::make('Sticker', 'sticker_id')
+                ->options(Sticker::query()->pluck('title', 'id')->toArray()),
+
+            BelongsToMany::make(
+                'Tags',
+                'tags',
+                formatted: static fn (Tag $model) => $model->title,
+                resource: TagResource::class,
+            )->selectMode(),
+
             Switcher::make('Published', 'is_published'),
         ];
     }
 
     /**
      * @param  TableBuilder  $component
-     *
      * @return TableBuilder
      */
     protected function modifyListComponent(ComponentContract $component): ComponentContract
